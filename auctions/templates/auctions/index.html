@@ -4,7 +4,11 @@
     <h2>Active Listings</h2>
 
     {% if user.is_authenticated %}
-    <a href="">Create Listing</a>
+    <a href="{% url 'create' %}">Create Listing</a>
     {% endif %}
     
+    {% for listing in listings %}
+        <h1> {{listing.title}} </h1>
+    {% endfor %}
+
 {% endblock %}
