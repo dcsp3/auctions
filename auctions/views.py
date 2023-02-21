@@ -28,6 +28,13 @@ def create(request):
     })
 
 
+def listing(request, id):
+    listing = Listings.objects.get(id=id)
+    return render(request, "auctions/listing.html", {
+        "listing": listing,
+    })
+
+
 def login_view(request):
     if request.method == "POST":
 
