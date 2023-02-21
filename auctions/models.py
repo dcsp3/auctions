@@ -1,16 +1,23 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from .id import Id
+
 
 class User(AbstractUser):
     pass
 
 class Listings(models.Model):
+    id = models.CharField(max_length=5, primary_key=True)
     title = models.CharField(max_length=64)
     category = models.CharField(max_length=64)
     description = models.CharField(max_length=300)
     bid = models.IntegerField()
     photo_url = models.CharField(max_length=500)
+
+    def save(self, *args, **kwargs):
+        self.id = Id().generate()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
