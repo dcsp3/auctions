@@ -9,6 +9,7 @@ class User(AbstractUser):
 
 class Listings(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     title = models.CharField(max_length=64)
     category = models.CharField(max_length=64)
     description = models.CharField(max_length=300)

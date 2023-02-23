@@ -20,6 +20,8 @@ def create(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
             form.save()
             return redirect('index')
     
