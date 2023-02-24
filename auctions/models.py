@@ -7,6 +7,7 @@ from .id import Id
 class User(AbstractUser):
     pass
 
+
 class Listings(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
@@ -22,3 +23,12 @@ class Listings(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Comments(models.Model):
+    listing_id = models.CharField(max_length=5)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.CharField(max_length=300)
+    
+    def __str__(self):
+        return self.text

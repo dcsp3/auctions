@@ -10,5 +10,26 @@
     <br>
     <br>
     <h2>{{ listing.bid }}</h2>
+    <br>
+    <br>
+    <br>
+    <div>
+        <hr>
+        <h3><u>Comments</u></h3>
+        <hr>
+        {% if user.is_authenticated %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{ form.text }}
+                <input type="submit" value="Comment">
+            </form>
+        {% endif %}
+        {% for comment in comments %}
+        <b>{{ comment.user }}</b> : {{ comment.text }}
+        <hr>
+        {% empty %}
+        <h2>NO COMMENTS YET!</h2>
+        {% endfor %}
+    </div>
 
 {% endblock %}

@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .form import ListingForm
-from .models import User, Listings
+from .form import ListingForm, CommentForm
+from .models import User, Listings, Comments
 
 
 def index(request):
@@ -32,8 +32,23 @@ def create(request):
 
 def listing(request, id):
     listing = Listings.objects.get(id=id)
+    form = CommentForm
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.listing_id = id
+            form.save()
+            return redirect('listing', id)
+
+    comments = Comments.objects.filter(listing_id=id)
+
     return render(request, "auctions/listing.html", {
         "listing": listing,
+        "comments": comments,
+        "form": form,
     })
 
 
