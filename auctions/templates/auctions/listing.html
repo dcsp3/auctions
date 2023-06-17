@@ -23,6 +23,7 @@
                 {{ form.text }}
                 <input type="submit" value="Comment">
             </form>
+            <hr/>
         {% endif %}
         {% for comment in comments %}
         <b>{{ comment.user }}</b> : {{ comment.text }}

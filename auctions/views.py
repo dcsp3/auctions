@@ -47,7 +47,7 @@ def listing(request, id):
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        "comments": comments,
+        "comments": comments[::-1],
         "form": form,
     })
 
