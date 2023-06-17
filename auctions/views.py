@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .form import ListingForm, CommentForm
-from .models import User, Listings, Comments
+from .models import User, Listings, Comments, Watchlist
 
 
 def index(request):
@@ -32,6 +32,13 @@ def create(request):
 
 def listing(request, id):
     listing = Listings.objects.get(id=id)
+
+    is_added_to_watchlist = False
+    if request.user.is_authenticated:
+        watchlist = Watchlist.objects.filter(user=request.user, listings=listing).exists()
+        if watchlist:
+            is_added_to_watchlist = True
+
     form = CommentForm
     
     if request.method == 'POST':
@@ -42,14 +49,37 @@ def listing(request, id):
             form.listing_id = id
             form.save()
             return redirect('listing', id)
-
+            
     comments = Comments.objects.filter(listing_id=id)
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
+        'is_added_to_watchlist': is_added_to_watchlist,
         "comments": comments[::-1],
         "form": form,
     })
+
+
+def add_to_watchlist(request, listing_id):
+    listing = get_object_or_404(Listings, pk=listing_id)
+    watchlist, created = Watchlist.objects.get_or_create(user=request.user)
+    watchlist.listings.add(listing)
+
+    return redirect("listing", listing_id)
+
+
+def watchlist(request):
+    try:
+        watchlist = Watchlist.objects.get(user=request.user)
+        watchlist_items = watchlist.listings.all()
+    except Watchlist.DoesNotExist:
+        watchlist_items = []
+
+    context = {
+        "watchlist_items": watchlist_items,
+    }
+
+    return render(request, "auctions/watchlist.html", context)
 
 
 def login_view(request):

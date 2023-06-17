@@ -3,16 +3,25 @@
 {% block body %}
     
     <h1>{{ listing.title }}</h1>
-    <br>
-    <h2>LISTED BY {{ listing.user }}</h2>
-    <br>
+    <h4>by: {{ listing.user }}</h2>
+    <hr>
+
+    {% if user.is_authenticated %}
+        {% if is_added_to_watchlist %}
+            <p>Added to Watchlist</p>
+        {% else %}
+            <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+        {% endif %}
+    {% endif %}
+    
+    <hr>
+    <h3><u>Description</u></h3>
     <p>{{ listing.description }}</p>
     <br>
     <br>
-    <h2>{{ listing.bid }}</h2>
-    <br>
-    <br>
-    <br>
+    <hr>
+    <h2><center>Current Bid: {{ listing.bid }}</center></h2>
+
     <div>
         <hr>
         <h3><u>Comments</u></h3>
