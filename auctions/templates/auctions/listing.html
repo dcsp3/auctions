@@ -8,7 +8,7 @@
 
     {% if user.is_authenticated %}
         {% if is_added_to_watchlist %}
-            <p>Already in Watchlist</p>
+            <p>Added to Watchlist</p>
         {% else %}
             <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
         {% endif %}

@@ -62,15 +62,24 @@ def listing(request, id):
 
 def add_to_watchlist(request, listing_id):
     listing = get_object_or_404(Listings, pk=listing_id)
-
-    # Get or create the user's watchlist
     watchlist, created = Watchlist.objects.get_or_create(user=request.user)
-
-    # Add the listing to the watchlist
     watchlist.listings.add(listing)
 
-    # Render the template with the context
     return redirect("listing", listing_id)
+
+
+def watchlist(request):
+    try:
+        watchlist = Watchlist.objects.get(user=request.user)
+        watchlist_items = watchlist.listings.all()
+    except Watchlist.DoesNotExist:
+        watchlist_items = []
+
+    context = {
+        "watchlist_items": watchlist_items,
+    }
+
+    return render(request, "auctions/watchlist.html", context)
 
 
 def login_view(request):
