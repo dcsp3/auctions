@@ -7,12 +7,17 @@ from .id import Id
 class User(AbstractUser):
     pass
 
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 class Listings(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     title = models.CharField(max_length=64)
-    category = models.CharField(max_length=64)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.CharField(max_length=300)
     bid = models.IntegerField()
     photo_url = models.CharField(max_length=500)
@@ -33,6 +38,7 @@ class Comments(models.Model):
     def __str__(self):
         return self.text
     
+
 class Watchlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     listings = models.ManyToManyField(Listings)
