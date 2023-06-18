@@ -5,7 +5,7 @@
     <h1>{{ listing.title }}</h1>
     <h4>by: {{ listing.user }}</h2>
     <hr>
-    <h5>{{ listing.category }}</h5>
+    <h5><a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a></h5>
     <hr>
 
     {% if user.is_authenticated %}
