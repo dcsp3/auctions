@@ -51,16 +51,37 @@ def listing(request, id):
             form.user = request.user
             form.listing_id = id
             form.save()
-            return redirect('listing', id)
+            return redirect("listing", id)
             
     comments = Comments.objects.filter(listing_id=id)
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        'is_added_to_watchlist': is_added_to_watchlist,
+        "is_added_to_watchlist": is_added_to_watchlist,
         "comments": comments[::-1],
         "form": form,
     })
+
+
+def categories(request):
+    categories = Category.objects.all()
+    context = {
+        "categories": categories,
+    }
+
+    return render(request, "auctions/categories.html", context)
+
+
+def individual_category(request, name):
+    category = Category.objects.get(name=name)
+    listings = Listings.objects.filter(category=category)
+
+    context = {
+        "category": category,
+        "listings": listings
+    }
+    
+    return render(request, "auctions/individual_category.html", context)
 
 
 def add_to_watchlist(request, listing_id):
