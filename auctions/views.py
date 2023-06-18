@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .form import ListingForm, CommentForm
-from .models import User, Listings, Comments, Watchlist
+from .models import User, Listings, Comments, Watchlist, Category
 
 
 def index(request):
@@ -17,6 +17,8 @@ def index(request):
 def create(request):
     form = ListingForm
 
+    categories = Category.objects.all()
+
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
@@ -27,6 +29,7 @@ def create(request):
     
     return render(request, "auctions/create.html", {
         "form": form,
+        "categories": categories
     })
 
 

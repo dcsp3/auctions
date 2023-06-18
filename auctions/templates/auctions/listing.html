@@ -5,6 +5,8 @@
     <h1>{{ listing.title }}</h1>
     <h4>by: {{ listing.user }}</h2>
     <hr>
+    <h5>{{ listing.category }}</h5>
+    <hr>
 
     {% if user.is_authenticated %}
         {% if is_added_to_watchlist %}

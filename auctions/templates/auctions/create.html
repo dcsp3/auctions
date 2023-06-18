@@ -9,6 +9,12 @@
         <br>
         Bid : {{form.bid}}
         <br>
+        <select name="category">
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
         <br>
         <input type="submit" value="Submit">
     </form>
