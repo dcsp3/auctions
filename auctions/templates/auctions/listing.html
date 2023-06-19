@@ -22,7 +22,19 @@
     <br>
     <br>
     <hr>
-    <h2><center>Current Bid: {{ listing.bid }}</center></h2>
+    <h4>Starting Bid: ${{ listing.starting_bid }}</h4>    
+    <h4>Highest Bid: ${{ listing.highest_bid }} [by: {{  listing.highest_bidder  }}]</h4>
+
+    {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'listing' listing.id %}">
+            {% csrf_token %}
+            <label for="bid_amount">Your Bid:</label>
+            <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
+            <button type="submit">Place Bid</button>
+        </form>
+    {% else %}
+        <p>You must be logged in to place a bid.</p>
+    {% endif %}
 
     <div>
         <hr>
@@ -31,13 +43,13 @@
         {% if user.is_authenticated %}
             <form method="POST" action="">
                 {% csrf_token %}
-                {{ form.text }}
+                {{ form.comment_text }}
                 <input type="submit" value="Comment">
             </form>
             <hr/>
         {% endif %}
         {% for comment in comments %}
-        <b>{{ comment.user }}</b> : {{ comment.text }}
+        <b>{{ comment.user }}</b> : {{ comment.comment_text }}
         <hr>
         {% empty %}
         <h2>NO COMMENTS YET!</h2>
