@@ -7,6 +7,13 @@
     <hr>
     <h5><a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a></h5>
     <hr>
+    {% if request.user.is_authenticated and listing.user == request.user and not listing.closed %}
+        <form method="POST" action="">
+            {% csrf_token %}
+            <button type="submit" name="close_auction">Close Auction</button>
+        </form>
+    {% endif %}
+    <hr>
 
     {% if user.is_authenticated %}
         {% if is_added_to_watchlist %}
@@ -24,14 +31,23 @@
     <hr>
     <h4>Starting Bid: ${{ listing.starting_bid }}</h4>    
     <h4>Highest Bid: ${{ listing.highest_bid }} [by: {{  listing.highest_bidder  }}]</h4>
+    <hr>
 
     {% if user.is_authenticated %}
-        <form method="POST" action="{% url 'listing' listing.id %}">
-            {% csrf_token %}
-            <label for="bid_amount">Your Bid:</label>
-            <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
-            <button type="submit">Place Bid</button>
-        </form>
+        {% if listing.closed %}
+            {% if request.user == listing.highest_bidder %}
+                <h3>Congratulations! You won this auction.</h3>
+            {% else %}
+                <h3>This listing is closed!</h3>
+            {% endif %}
+        {% else %}
+            <form method="POST" action="{% url 'listing' listing.id %}">
+                {% csrf_token %}
+                <label for="bid_amount">Your Bid:</label>
+                <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
+                <button type="submit">Place Bid</button>
+            </form>
+        {% endif %}
     {% else %}
         <p>You must be logged in to place a bid.</p>
     {% endif %}
