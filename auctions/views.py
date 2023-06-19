@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -5,12 +6,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .form import ListingForm, CommentForm
-from .models import User, Listings, Comments, Watchlist, Category
+from .models import User, Listings, Bid, Comments, Watchlist, Category
 
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listings.objects.all()
+        "listings": Listings.objects.all()[::-1]
     })
 
     
@@ -24,6 +25,8 @@ def create(request):
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
+            form.highest_bid = form.starting_bid
+            form.highest_bidder = request.user
             form.save()
             return redirect('index')
     
@@ -45,13 +48,32 @@ def listing(request, id):
     form = CommentForm
     
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.user = request.user
-            form.listing_id = id
-            form.save()
+        if 'bid_amount' in request.POST:
+            bid_amount = request.POST.get('bid_amount')
+            if bid_amount and float(bid_amount) > float(listing.highest_bid or listing.starting_bid):
+                bid = Bid.objects.create(listing=listing, user=request.user, amount=bid_amount)
+                listing.highest_bid = bid_amount
+                listing.highest_bidder = request.user
+                listing.save(force_update=['highest_bid', 'highest_bidder'])
+                messages.success(request, 'Your bid was successfully placed.')
+            else:
+                messages.error(request, 'Your bid must be greater than the current highest bid.')
             return redirect("listing", id)
+
+        elif 'comment_text' in request.POST:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.user = request.user
+                form.listing_id = id
+                form.save()
+                return redirect("listing", id)
+            
+        elif 'close_auction' in request.POST:
+            if listing.user == request.user:
+                listing.closed = True
+                listing.save()
+                return redirect("listing", id)
             
     comments = Comments.objects.filter(listing_id=id)
 

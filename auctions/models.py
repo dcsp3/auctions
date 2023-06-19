@@ -19,24 +19,37 @@ class Listings(models.Model):
     title = models.CharField(max_length=64)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.CharField(max_length=300)
-    bid = models.IntegerField()
+    starting_bid = models.DecimalField(max_digits=10, decimal_places=2)
+    highest_bid = models.DecimalField(max_digits=10, decimal_places=2)
+    highest_bidder = models.ForeignKey(User, on_delete=models.CASCADE)
+    closed = models.BooleanField(default=False)
     photo_url = models.CharField(max_length=500)
 
     def save(self, *args, **kwargs):
-        self.id = Id().generate()
+        if not Listings.objects.filter(id=self.id).exists():
+            self.id = Id().generate()
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
     
 
+class Bid(models.Model):
+    listing = models.ForeignKey(Listings, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.user}'s Bid on {self.listing.title}"
+    
+
 class Comments(models.Model):
     listing_id = models.CharField(max_length=5)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.CharField(max_length=300)
+    comment_text = models.CharField(max_length=300)
     
     def __str__(self):
-        return self.text
+        return self.comment_text
     
 
 class Watchlist(models.Model):
