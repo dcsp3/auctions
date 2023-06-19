@@ -22,6 +22,7 @@ class Listings(models.Model):
     starting_bid = models.DecimalField(max_digits=10, decimal_places=2)
     highest_bid = models.DecimalField(max_digits=10, decimal_places=2)
     highest_bidder = models.ForeignKey(User, on_delete=models.CASCADE)
+    closed = models.BooleanField(default=False)
     photo_url = models.CharField(max_length=500)
 
     def save(self, *args, **kwargs):
