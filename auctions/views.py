@@ -69,6 +69,12 @@ def listing(request, id):
                 form.save()
                 return redirect("listing", id)
             
+        elif 'close_auction' in request.POST:
+            if listing.user == request.user:
+                listing.closed = True
+                listing.save()
+                return redirect("listing", id)
+            
     comments = Comments.objects.filter(listing_id=id)
 
     return render(request, "auctions/listing.html", {
