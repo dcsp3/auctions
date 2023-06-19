@@ -11,7 +11,7 @@ from .models import User, Listings, Bid, Comments, Watchlist, Category
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listings.objects.all()
+        "listings": Listings.objects.all()[::-1]
     })
 
     
