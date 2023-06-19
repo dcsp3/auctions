@@ -17,7 +17,7 @@
 
     {% if user.is_authenticated %}
         {% if is_added_to_watchlist %}
-            <p>Added to Watchlist</p>
+            <a href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
         {% else %}
             <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
         {% endif %}

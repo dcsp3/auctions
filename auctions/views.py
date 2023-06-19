@@ -114,6 +114,14 @@ def add_to_watchlist(request, listing_id):
     return redirect("listing", listing_id)
 
 
+def remove_from_watchlist(request, listing_id):
+    listing = get_object_or_404(Listings, pk=listing_id)
+    watchlist = Watchlist.objects.get(user=request.user)
+    watchlist.listings.remove(listing)
+
+    return redirect("listing", listing_id)
+
+
 def watchlist(request):
     try:
         watchlist = Watchlist.objects.get(user=request.user)
