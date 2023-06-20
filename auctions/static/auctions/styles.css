@@ -1,5 +1,5 @@
 body {
-    background-color: whitesmoke;
+    background-color: #d3cfcf;
 }
 
 .navbar-container {
@@ -38,12 +38,8 @@ body {
 
 .nav-link:hover {
     color: greenyellow;
-    background-color: black;
-    border-radius: 15px;
 }
 
 .nav-link.active {
     color: greenyellow;
-    background-color: black;
-    border-radius: 15px;
 }
