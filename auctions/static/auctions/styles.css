@@ -33,13 +33,45 @@ body {
 
 .nav-link {
     text-decoration: none;
-    color: whitesmoke;
+    color: gray;
 }
 
 .nav-link:hover {
-    color: greenyellow;
+    color: white;
 }
 
 .nav-link.active {
-    color: greenyellow;
+    color: white;
+}
+
+.index-container {
+    padding: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.inner-index-container {
+    display: flex;
+}
+
+.index-heading {
+    text-decoration: underline;
+}
+
+.create-text {
+    background-color: lightgray;
+    font-size: larger;
+    align-self: center;
+    margin-left: 3%;
+    border: 2px solid #181818;
+    border-radius: 3px;
+    padding: 5px;
+    text-decoration: none;
+    color: black
+}
+
+.create-text:hover {
+    text-decoration: none;
+    background-color: rgb(203, 203, 203);
+    color: black
 }

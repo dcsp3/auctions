@@ -1,14 +1,21 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
 
-    {% if user.is_authenticated %}
-    <a href="{% url 'create' %}">Create Listing</a>
-    {% endif %}
-    
-    {% for listing in listings %}
-        <h1><a href="{% url 'listing' listing.id %}"> {{listing.title}} </a></h1>
-    {% endfor %}
+    <div class="index-container">
+        <div class="inner-index-container">
+            <h1 class="index-heading">Active Listings</h1>
+            {% if user.is_authenticated %}
+            <a class="create-text" href="{% url 'create' %}">Create Listing</a>
+            {% endif %}
+        </div>
+
+        <br>
+        <br>
+
+        {% for listing in listings %}
+            <h1><a href="{% url 'listing' listing.id %}" class="listing"> {{listing.title}} </a></h1>
+        {% endfor %}
+    </div>
 
 {% endblock %}
