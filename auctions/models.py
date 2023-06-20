@@ -23,7 +23,7 @@ class Listings(models.Model):
     highest_bid = models.DecimalField(max_digits=10, decimal_places=2)
     highest_bidder = models.ForeignKey(User, on_delete=models.CASCADE)
     closed = models.BooleanField(default=False)
-    photo_url = models.CharField(max_length=500)
+    image_url = models.CharField(max_length=500, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not Listings.objects.filter(id=self.id).exists():
