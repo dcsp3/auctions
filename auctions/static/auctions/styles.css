@@ -2,7 +2,7 @@ body {
     background-color: whitesmoke;
 }
 
-.navbar_container {
+.navbar-container {
     background-color: #181818;
     display: flex;
     padding: 20px
@@ -13,7 +13,7 @@ body {
     color: whitesmoke;
 }
 
-.sign_in_text {
+.sign-in-text {
     text-align: end;
     margin: auto;
     color: whitesmoke
