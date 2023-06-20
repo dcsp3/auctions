@@ -1,3 +1,49 @@
 body {
+    background-color: whitesmoke;
+}
+
+.navbar_container {
+    background-color: #181818;
+    display: flex;
+    padding: 20px
+}
+
+.logo {
+    margin: auto;
+    color: whitesmoke;
+}
+
+.sign_in_text {
+    text-align: end;
+    margin: auto;
+    color: whitesmoke
+}
+
+.nav {
+    gap: 10px;
     padding: 10px;
+    margin-top: -20px;
+    margin: auto;
+}
+
+.nav-item {
+    text-decoration: none;
+    margin: 2px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.nav-link:hover {
+    color: greenyellow;
+    background-color: black;
+    border-radius: 15px;
+}
+
+.nav-link.active {
+    color: greenyellow;
+    background-color: black;
+    border-radius: 15px;
 }
