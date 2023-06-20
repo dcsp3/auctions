@@ -44,6 +44,28 @@ body {
     color: white;
 }
 
+.create-form{
+    align-content: center;
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+    margin-top: 3%;
+    border-radius: 15px;
+    background-color: whitesmoke;
+}
+
+.register-container {
+    padding: 30px;
+    margin-left: 10%;
+    margin-right: 60%;
+}
+
+.login-container {
+    padding: 30px;
+    margin-left: 10%;
+    margin-right: 60%;
+}
+
 .index-container {
     padding: 30px;
     margin-left: 10%;
@@ -54,12 +76,8 @@ body {
     display: flex;
 }
 
-.index-heading {
-    text-decoration: underline;
-}
-
 .create-text {
-    background-color: lightgray;
+    background-color: rgb(203, 203, 203);
     font-size: larger;
     align-self: center;
     margin-left: 3%;
@@ -72,6 +90,6 @@ body {
 
 .create-text:hover {
     text-decoration: none;
-    background-color: rgb(203, 203, 203);
+    background-color: rgb(216, 216, 216);
     color: black
 }

@@ -4,7 +4,7 @@
 
     <div class="index-container">
         <div class="inner-index-container">
-            <h1 class="index-heading">Active Listings</h1>
+            <h1 style="text-shadow: 1px 1px 2px gray;">Active Listings</h1>
             {% if user.is_authenticated %}
             <a class="create-text" href="{% url 'create' %}">Create Listing</a>
             {% endif %}

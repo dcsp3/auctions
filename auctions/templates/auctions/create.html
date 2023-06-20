@@ -1,22 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <form method="POST" action="">
-        {% csrf_token %}
-        Title : {{form.title}}
-        <br>
-        Description : {{form.description}}
-        <br>
-        Starting Bid : {{form.starting_bid}}
-        <br>
-        <select name="category">
-            {% for category in categories %}
-              <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="create-form">
+        <form method="POST" action="">
+            {% csrf_token %}
+            Title: {{form.title}}
+            <br>
+            <br>
+            Description: {{form.description}}
+            <br>
+            <br>
+            Starting Bid (£): {{form.starting_bid}}
+            <br>
+            <br>
+            Image URL: {{form.image_url}} 
+            <br>
+            <br>
+            Category:
+            <select name="category">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
     
 {% endblock %}
