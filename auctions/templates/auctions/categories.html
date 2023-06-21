@@ -5,7 +5,6 @@
     <div class="categories-container">
         <h1 style="text-shadow: 1px 1px 2px gray;">Categories</h1>
         <br>
-        <br>
         <div class="categories">
         {% for category in categories %}
             <a class="category" href="{% url 'individual_category' category.name %}">{{ category.name }}</a>
