@@ -1,14 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    
-    <h1>{{ category.name }} Listings</h1>
-    <ul>
-    {% for listing in listings %}
-        <li><a href="{% url 'listing' listing.id %}"> {{listing.title}} </a></li>
-    {% empty %}
-        <li>No listings available.</li>
-    {% endfor %}
-    </ul>
+
+    <div class="individual-category-container">
+        <h1 style="text-shadow: 1px 1px 2px gray;">{{ category.name }} Listings</h1>
+        <br>
+        <div class="listings">
+            {% for listing in listings %}
+                <div class="listing">
+                    {% if listing.image_url %}
+                    <img class="listing-image" src={{listing.image_url}}> 
+                    {% else %}
+                    <div class="listing-no-image">
+                        No image available
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h2><a class="listing-heading" href="{% url 'listing' listing.id %}" class="listing"> {{listing.title}} </a></h2>
+                        <h5>£{{listing.highest_bid}}</h5>
+                        <br>
+                        {{listing.description}}
+                    </div>
+                </div>
+                <br>
+                {% empty %}
+                No listings available.
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
