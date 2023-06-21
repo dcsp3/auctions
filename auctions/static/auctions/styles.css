@@ -56,6 +56,28 @@ body {
     border-radius: 10px;
 }
 
+.listing {
+    background-color: RGB(230, 230, 230);
+    box-shadow: 0px 1px 2px .5px grey;
+    border-radius: 15px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.listing-heading {
+    color: #181818;
+}
+
+.listing-heading:hover {
+    color: #181818;
+}
+
+.listing-image {
+    border-radius: 15px;
+    box-shadow: 0px 1px 2px .5px grey;
+}
+
 .register-container {
     padding: 30px;
     margin-left: 10%;
@@ -116,6 +138,7 @@ body {
     font-size: xx-large;
     background-color: #3d3d3d;
     border-radius: 10px;
+    box-shadow: 0px 1px 2px .5px grey;
 }
 
 .category:hover {
