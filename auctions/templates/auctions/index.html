@@ -16,7 +16,14 @@
         <div class="listings">
             {% for listing in listings %}
                 <div class="listing">
-                    <img class="listing-image" src={{listing.image_url}} height="200" width="200"> 
+
+                    {% if listing.image_url %}
+                    <img class="listing-image" src={{listing.image_url}}> 
+                    {% else %}
+                    <div class="listing-no-image">
+                        No image available
+                    </div>
+                    {% endif %}
                     <div>
                         <h1><a class="listing-heading" href="{% url 'listing' listing.id %}" class="listing"> {{listing.title}} </a></h1>
                         <h5>£{{listing.highest_bid}}</h5>
