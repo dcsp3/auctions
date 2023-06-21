@@ -154,7 +154,9 @@ body {
 }
 
 .watchlist-container {
-
+    padding: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .register-container {
