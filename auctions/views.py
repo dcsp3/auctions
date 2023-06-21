@@ -96,7 +96,7 @@ def categories(request):
 
 def individual_category(request, name):
     category = Category.objects.get(name=name)
-    listings = Listings.objects.filter(category=category)
+    listings = Listings.objects.filter(category=category)[::-1]
 
     context = {
         "category": category,
