@@ -11,7 +11,6 @@
         </div>
 
         <br>
-        <br>
 
         <div class="listings">
             {% for listing in listings %}
@@ -24,7 +23,7 @@
                     </div>
                     {% endif %}
                     <div>
-                        <h1><a class="listing-heading" href="{% url 'listing' listing.id %}" class="listing"> {{listing.title}} </a></h1>
+                        <h2><a class="listing-heading" href="{% url 'listing' listing.id %}" class="listing"> {{listing.title}} </a></h2>
                         <h5>£{{listing.highest_bid}}</h5>
                         <br>
                         {{listing.description}}
