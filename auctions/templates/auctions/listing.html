@@ -14,32 +14,38 @@
                 </div>
             {% endif %}
 
-            <h1>{{ listing.title }}</h1>
+            <div>
+                <h1>{{ listing.title }}</h1>
 
-            
-            {% if request.user.is_authenticated and listing.user == request.user and not listing.closed %}
-                <form method="POST" action="">
-                    {% csrf_token %}
-                    <button type="submit" name="close_auction">Close Auction</button>
-                </form>
-            {% endif %}
-
-            <a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a>
-
-            {% if user.is_authenticated %}
-                {% if is_added_to_watchlist %}
-                    <a href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
-                {% else %}
-                    <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+                
+                {% if request.user.is_authenticated and listing.user == request.user and not listing.closed %}
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <button type="submit" name="close_auction">Close Auction</button>
+                    </form>
                 {% endif %}
-            {% endif %}
 
-            <h4>Bids: </h4>
-            <h4>Seller: {{ listing.user }}</h4>
-            <p>{{ listing.description }}</p>
-            <hr>
-            <br>
-            <br>
+                <a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a>
+
+                {% if user.is_authenticated %}
+                    {% if is_added_to_watchlist %}
+                        <a href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
+                    {% else %}
+                        <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+                    {% endif %}
+                {% endif %}
+                
+                <br>
+                Bids:
+                <br>
+                Seller: {{ listing.user }}
+                <br>
+                About: {{ listing.description }}
+                <hr>
+                <br>
+                <br>
+            </div>
+
         </div>
 
         <div class="individual-listing-bids">
