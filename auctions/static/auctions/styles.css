@@ -130,11 +130,74 @@ body {
     gap: 20px;
 }
 
+.close-auction-form {
+    margin-left: auto;
+}
+
+.close-auction-button {
+    color: whitesmoke;
+    background-color: rgb(130, 21, 21);
+    border-radius: 5px;
+}
+
+.close-auction-button:hover {
+    background-color: red;
+}
+
 .individual-listing-classes {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
 }
+
+.category-button {
+    color: whitesmoke;
+    padding: 3px;
+    text-decoration: none;
+    background-color: blue;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.category-button:hover {
+    color: whitesmoke;
+    padding: 3px;
+    text-decoration: none;
+    background-color: rgb(22, 68, 235);
+ }
+
+.add-watchlist-button {
+    color: whitesmoke;
+    padding: 3px;
+    text-decoration: none;
+    background-color: green;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.add-watchlist-button:hover {
+    color: whitesmoke;
+    padding: 3px;
+    text-decoration: none;
+    background-color: rgb(1, 149, 1);
+ }
+
+.remove-watchlist-button {
+    color: whitesmoke;
+    padding: 3px;
+    text-decoration: none;
+    background-color: rgb(130, 21, 21);
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.remove-watchlist-button:hover {
+    color: whitesmoke;
+    padding: 3px;
+    text-decoration: none;
+    background-color: red;
+ }
+
 
 .individual-listing-details {
     background-color: RGB(230, 230, 230);
@@ -160,6 +223,10 @@ body {
     align-items: center;
     border-radius: 15px;
     box-shadow: 0px 1px 2px .5px grey;
+}
+
+.place-bid-button {
+    
 }
 
 .categories-container {

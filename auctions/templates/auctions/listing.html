@@ -19,21 +19,21 @@
                     <h1>{{ listing.title }}</h1>
                     
                     {% if request.user.is_authenticated and listing.user == request.user and not listing.closed %}
-                        <form method="POST" action="">
+                        <form class="close-auction-form" method="POST" action="">
                             {% csrf_token %}
-                            <button type="submit" name="close_auction">Close Auction</button>
+                            <button class="close-auction-button" type="submit" name="close_auction">Close Auction</button>
                         </form>
                     {% endif %}
                 </div>
                     
                 <div class="individual-listing-classes">
-                    <a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a>
+                    <a class="category-button" href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a>
 
                     {% if user.is_authenticated %}
                         {% if is_added_to_watchlist %}
-                            <a href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
+                            <a class="remove-watchlist-button" href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
                         {% else %}
-                            <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+                            <a class="add-watchlist-button" href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
                         {% endif %}
                     {% endif %}
                     
@@ -43,26 +43,30 @@
 
 
                 <hr>
-                Current Price: £{{ listing.highest_bid }}
         
-                {% if user.is_authenticated %}
-                    {% if listing.closed %}
-                        {% if request.user == listing.highest_bidder %}
-                            <h3>Congratulations! You won this auction.</h3>
-                        {% else %}
-                            <h3>This listing is closed!</h3>
-                        {% endif %}
+
+                {% if listing.closed %}
+                    {% if request.user == listing.highest_bidder and not listing.user == listing.highest_bidder %}
+                        <h3><center>Congratulations! You won this auction.</center></h3>
                     {% else %}
+                        <h3><center>This listing is closed.</center></h3>
+                    {% endif %}
+                {% else %}
+                    
+                    Current Price: £{{ listing.highest_bid }}
+                    {% if user.is_authenticated %}
                         <form method="POST" action="{% url 'listing' listing.id %}">
                             {% csrf_token %}
                             <label for="bid_amount">Your Bid:</label>
                             <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
-                            <button type="submit">Place Bid</button>
+                            <button class="place-bid-button" type="submit">Place Bid</button>
                         </form>
+                    {% else %}
+                        <p>You must be logged in to place a bid.</p>
                     {% endif %}
-                {% else %}
-                    <p>You must be logged in to place a bid.</p>
                 {% endif %}
+
+
                 <hr>
                 Bids:
                 <br>
