@@ -15,64 +15,69 @@
             {% endif %}
 
             <div>
-                <h1>{{ listing.title }}</h1>
-
-                
-                {% if request.user.is_authenticated and listing.user == request.user and not listing.closed %}
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <button type="submit" name="close_auction">Close Auction</button>
-                    </form>
-                {% endif %}
-
-                <a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a>
-
-                {% if user.is_authenticated %}
-                    {% if is_added_to_watchlist %}
-                        <a href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
-                    {% else %}
-                        <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+                <div class="individual-listing-title">
+                    <h1>{{ listing.title }}</h1>
+                    
+                    {% if request.user.is_authenticated and listing.user == request.user and not listing.closed %}
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <button type="submit" name="close_auction">Close Auction</button>
+                        </form>
                     {% endif %}
-                {% endif %}
+                </div>
+                    
+                <div class="individual-listing-classes">
+                    <a href="{% url 'individual_category' listing.category.name %}">{{ listing.category }}</a>
+
+                    {% if user.is_authenticated %}
+                        {% if is_added_to_watchlist %}
+                            <a href="{% url 'remove_from_watchlist' listing.id %}">Remove from Watchlist</a>
+                        {% else %}
+                            <a href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <br>
+                </div>
                 
-                <br>
+
+
+                <hr>
+                Current Price: £{{ listing.highest_bid }}
+        
+                {% if user.is_authenticated %}
+                    {% if listing.closed %}
+                        {% if request.user == listing.highest_bidder %}
+                            <h3>Congratulations! You won this auction.</h3>
+                        {% else %}
+                            <h3>This listing is closed!</h3>
+                        {% endif %}
+                    {% else %}
+                        <form method="POST" action="{% url 'listing' listing.id %}">
+                            {% csrf_token %}
+                            <label for="bid_amount">Your Bid:</label>
+                            <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
+                            <button type="submit">Place Bid</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <p>You must be logged in to place a bid.</p>
+                {% endif %}
+                <hr>
                 Bids:
                 <br>
-                Seller: {{ listing.user }}
-                <br>
-                About: {{ listing.description }}
+                Seller: <strong>{{ listing.user }}</strong>
+
                 <hr>
-                <br>
-                <br>
+                <h6><u><strong>Description</strong></u></h6>
+                {{ listing.description }}
+
             </div>
 
         </div>
 
         <div class="individual-listing-bids">
-            <hr>
-            Current Price: £{{ listing.highest_bid }}
-    
-            {% if user.is_authenticated %}
-                {% if listing.closed %}
-                    {% if request.user == listing.highest_bidder %}
-                        <h3>Congratulations! You won this auction.</h3>
-                    {% else %}
-                        <h3>This listing is closed!</h3>
-                    {% endif %}
-                {% else %}
-                    <form method="POST" action="{% url 'listing' listing.id %}">
-                        {% csrf_token %}
-                        <label for="bid_amount">Your Bid:</label>
-                        <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
-                        <button type="submit">Place Bid</button>
-                    </form>
-                {% endif %}
-            {% else %}
-                <p>You must be logged in to place a bid.</p>
-            {% endif %}
-            <hr>
-            <br>
-            <br>    
+  
         </div>
 
         <div class="individual-listing-comments">
