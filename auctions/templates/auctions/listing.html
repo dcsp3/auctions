@@ -43,7 +43,7 @@
                 <hr>
         
                 {% if listing.closed %}
-                    {% if request.user == listing.highest_bidder and not listing.user == listing.highest_bidder %}
+                    {% if request.user == listing.highest_bidder %}
                         <h3><center>Congratulations! You won this auction.</center></h3>
                     {% else %}
                         <h3><center>This listing is closed.</center></h3>
