@@ -38,6 +38,7 @@ def create(request):
 
 def listing(request, id):
     listing = Listings.objects.get(id=id)
+    bids = Bid.objects.filter(listing=listing).count()
 
     is_added_to_watchlist = False
     if request.user.is_authenticated:
@@ -79,6 +80,7 @@ def listing(request, id):
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
+        "bids": bids,
         "is_added_to_watchlist": is_added_to_watchlist,
         "comments": comments[::-1],
         "form": form,
