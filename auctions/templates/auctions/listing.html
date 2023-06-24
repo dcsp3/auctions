@@ -53,11 +53,11 @@
                     {% endif %}
                 {% else %}
                     
-                    Current Price: £{{ listing.highest_bid }}
+                    <h5>Current Price: £{{ listing.highest_bid }}</h5>
                     {% if user.is_authenticated %}
                         <form method="POST" action="{% url 'listing' listing.id %}">
                             {% csrf_token %}
-                            <label for="bid_amount">Your Bid:</label>
+                            <strong><label for="bid_amount">Your Bid:</label></strong>
                             <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
                             <button class="place-bid-button" type="submit">Place Bid</button>
                         </form>
@@ -68,7 +68,7 @@
 
 
                 <hr>
-                Bids:
+                Bids: {{bids}}
                 <br>
                 Seller: <strong>{{ listing.user }}</strong>
 

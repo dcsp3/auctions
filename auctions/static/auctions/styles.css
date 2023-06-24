@@ -198,7 +198,6 @@ body {
     background-color: red;
  }
 
-
 .individual-listing-details {
     background-color: RGB(230, 230, 230);
     box-shadow: 0px 1px 2px .5px grey;
@@ -226,7 +225,12 @@ body {
 }
 
 .place-bid-button {
-    
+    background-color: #007bff;
+    color: whitesmoke;
+}
+
+.place-bid-button:hover {
+    background-color: #005eff;
 }
 
 .categories-container {
