@@ -6,12 +6,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .form import ListingForm, CommentForm
-from .models import User, Listings, Bid, Comments, Watchlist, Category
+from .models import User, Listing, Bid, Comment, Watchlist, Category
 
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listings.objects.all()[::-1]
+        "listings": Listing.objects.all()[::-1]
     })
 
     
@@ -37,7 +37,7 @@ def create(request):
 
 
 def listing(request, id):
-    listing = Listings.objects.get(id=id)
+    listing = Listing.objects.get(id=id)
     bids = Bid.objects.filter(listing=listing).count()
 
     is_added_to_watchlist = False
@@ -76,7 +76,7 @@ def listing(request, id):
                 listing.save()
                 return redirect("listing", id)
             
-    comments = Comments.objects.filter(listing_id=id)
+    comments = Comment.objects.filter(listing_id=id)
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
@@ -98,7 +98,7 @@ def categories(request):
 
 def individual_category(request, name):
     category = Category.objects.get(name=name)
-    listings = Listings.objects.filter(category=category)[::-1]
+    listings = Listing.objects.filter(category=category)[::-1]
 
     context = {
         "category": category,
@@ -109,7 +109,7 @@ def individual_category(request, name):
 
 
 def add_to_watchlist(request, listing_id):
-    listing = get_object_or_404(Listings, pk=listing_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
     watchlist, created = Watchlist.objects.get_or_create(user=request.user)
     watchlist.listings.add(listing)
 
@@ -117,7 +117,7 @@ def add_to_watchlist(request, listing_id):
 
 
 def remove_from_watchlist(request, listing_id):
-    listing = get_object_or_404(Listings, pk=listing_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
     watchlist = Watchlist.objects.get(user=request.user)
     watchlist.listings.remove(listing)
 

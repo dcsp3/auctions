@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import Listings, Bid, Comments, Watchlist, Category
+from .models import Listing, Bid, Comment, Watchlist, Category
 
 # Register your models here.
 
-admin.site.register(Listings)
+admin.site.register(Listing)
 admin.site.register(Bid)
-admin.site.register(Comments)
+admin.site.register(Comment)
 admin.site.register(Watchlist)
 admin.site.register(Category)

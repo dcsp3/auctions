@@ -13,7 +13,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Listings(models.Model):
+class Listing(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     title = models.CharField(max_length=64)
@@ -26,7 +26,7 @@ class Listings(models.Model):
     image_url = models.CharField(max_length=500, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if not Listings.objects.filter(id=self.id).exists():
+        if not Listing.objects.filter(id=self.id).exists():
             self.id = Id().generate()
         super().save(*args, **kwargs)
 
@@ -35,7 +35,7 @@ class Listings(models.Model):
     
 
 class Bid(models.Model):
-    listing = models.ForeignKey(Listings, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -43,7 +43,7 @@ class Bid(models.Model):
         return f"{self.user}'s Bid on {self.listing.title}"
     
 
-class Comments(models.Model):
+class Comment(models.Model):
     listing_id = models.CharField(max_length=5)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=300)
@@ -54,7 +54,7 @@ class Comments(models.Model):
 
 class Watchlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    listings = models.ManyToManyField(Listings)
+    listings = models.ManyToManyField(Listing)
 
     def __str__(self):
         return f"{self.user}'s Watchlist"
