@@ -1,12 +1,12 @@
 from django.forms import ModelForm
-from .models import Listings, Comments
+from .models import Listing, Comment
 
 class ListingForm(ModelForm):
     class Meta:
-        model = Listings
-        fields = ['title', 'description', 'starting_bid', 'category']
+        model = Listing
+        fields = ['title', 'description', 'starting_bid', 'image_url', 'category']
 
 class CommentForm(ModelForm):
     class Meta:
-        model = Comments
+        model = Comment
         fields = ['comment_text']

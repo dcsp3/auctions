@@ -1,14 +1,37 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
 
-    {% if user.is_authenticated %}
-    <a href="{% url 'create' %}">Create Listing</a>
-    {% endif %}
-    
-    {% for listing in listings %}
-        <h1><a href="{% url 'listing' listing.id %}"> {{listing.title}} </a></h1>
-    {% endfor %}
+    <div class="index-container">
+        <div class="inner-index-container">
+            <h1 style="text-shadow: 1px 1px 2px gray;">Active Listings</h1>
+            {% if user.is_authenticated %}
+            <a class="create-text" href="{% url 'create' %}">Create Listing</a>
+            {% endif %}
+        </div>
+
+        <br>
+
+        <div class="listings">
+            {% for listing in listings %}
+                <div class="listing">
+                    {% if listing.image_url %}
+                    <img class="listing-image" src={{listing.image_url}}> 
+                    {% else %}
+                    <div class="listing-no-image">
+                        No image available
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h2><a class="listing-heading" href="{% url 'listing' listing.id %}" class="listing"> {{listing.title}} </a></h2>
+                        <h5>£{{listing.highest_bid}}</h5>
+                        <br>
+                        {{listing.description}}
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
