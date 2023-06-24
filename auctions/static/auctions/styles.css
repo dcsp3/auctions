@@ -233,6 +233,21 @@ body {
     background-color: #005eff;
 }
 
+.individual-listing-comments {
+    background-color: RGB(230, 230, 230);
+    box-shadow: 0px 1px 2px .5px grey;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.individual-comment {
+    padding: 15px;
+    background-color: whitesmoke;
+    box-shadow: 0px 1px 2px .5px grey;
+    border-radius: 5px;
+    margin-top: 1%;
+}
+
 .categories-container {
     padding: 30px;
     margin-left: 10%;

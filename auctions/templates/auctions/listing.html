@@ -36,15 +36,12 @@
                             <a class="add-watchlist-button" href="{% url 'add_to_watchlist' listing.id %}">Add to Watchlist</a>
                         {% endif %}
                     {% endif %}
-                    
+     
                     <br>
                 </div>
-                
-
 
                 <hr>
         
-
                 {% if listing.closed %}
                     {% if request.user == listing.highest_bidder and not listing.user == listing.highest_bidder %}
                         <h3><center>Congratulations! You won this auction.</center></h3>
@@ -57,7 +54,7 @@
                     {% if user.is_authenticated %}
                         <form method="POST" action="{% url 'listing' listing.id %}">
                             {% csrf_token %}
-                            <strong><label for="bid_amount">Your Bid:</label></strong>
+                            <strong><label for="bid_amount">Your Bid (£):</label></strong>
                             <input type="number" name="bid_amount" step="0.01" min="{{ listing.highest_bid|floatformat:2 }}" required>
                             <button class="place-bid-button" type="submit">Place Bid</button>
                         </form>
@@ -66,13 +63,12 @@
                     {% endif %}
                 {% endif %}
 
-
                 <hr>
                 Bids: {{bids}}
                 <br>
                 Seller: <strong>{{ listing.user }}</strong>
-
                 <hr>
+
                 <h6><u><strong>Description</strong></u></h6>
                 {{ listing.description }}
 
@@ -80,12 +76,9 @@
 
         </div>
 
-        <div class="individual-listing-bids">
-  
-        </div>
+        <br>
 
         <div class="individual-listing-comments">
-            <hr>
             <h3><u>Comments</u></h3>
             {% if user.is_authenticated %}
                 <form method="POST" action="">
@@ -93,13 +86,18 @@
                     {{ form.comment_text }}
                     <input type="submit" value="Comment">
                 </form>
-                <hr/>
+                <hr>
             {% endif %}
             {% for comment in comments %}
-            <b>{{ comment.user }}</b> : {{ comment.comment_text }}
-            <hr>
+                <div class="individual-comment">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fronaldmottram.co.nz%2Fwp-content%2Fuploads%2F2019%2F01%2Fdefault-user-icon-8.jpg&f=1&nofb=1&ipt=9321d3ae768efcf8ec35b77bce818ded63f6438d2235b332d53659df5723c7e0&ipo=images" height="40" width="40" style="border-radius: 20px;">
+                    <strong>{{ comment.user }}</strong>
+                    <br>
+                    <br>    
+                    {{ comment.comment_text }}
+                </div>
             {% empty %}
-            <h2>NO COMMENTS YET!</h2>
+                No Comments Yet.
             {% endfor %}
         </div>
 
